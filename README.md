@@ -1,0 +1,2 @@
+# Tag2Dxf
+Tag2Dxf is a project for converting Taglio TAG files to AutoCAD DXF. TAG is a proprietary, closed format. There aren't any programs that can read them other than Taglio LogoTag, and Taglio has no tools to do bulk conversions.
