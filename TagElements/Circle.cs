@@ -1,9 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
 /// <summary>
-/// Circle.cs
-/// Created 11/18/2023
-/// Andrew Wyshak
-/// Surface Creations of Maine
+/// Tag2Dxf
+/// (C) Copyright 2023 Surface Creations of Maine
+///
+/// File:    Circle.cs
+/// Created: November 20, 2023
+/// Purpose: Class to encapsulate a TAG Circle
+/// Author:  Andrew Wyshak
 /// </summary>
+///////////////////////////////////////////////////////////////////////////////
 
 namespace Tag2Dxf.TagElements
 {

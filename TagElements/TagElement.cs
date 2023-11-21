@@ -1,14 +1,19 @@
+///////////////////////////////////////////////////////////////////////////////
 /// <summary>
-/// TagElement.cs
-/// Created 11/18/2023
-/// Andrew Wyshak
-/// Surface Creations of Maine
+/// Tag2Dxf
+/// (C) Copyright 2023 Surface Creations of Maine
+///
+/// File:    TagElement.cs
+/// Created: November 20, 2023
+/// Purpose: Base class for other TAG elements
+/// Author:  Andrew Wyshak
 /// </summary>
+///////////////////////////////////////////////////////////////////////////////
 
 namespace Tag2Dxf.TagElements
 {
     /// <summary>
-    /// Base class for other Tag elements
+    /// Base class for other TAG elements
     /// </summary>
     public abstract class TagElement
     {
