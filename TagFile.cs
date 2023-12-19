@@ -19,9 +19,44 @@ namespace Tag2Dxf
     /// </summary>
     public class TagFile
     {
-        private List<Arc> arcs;
-        private List<Circle> circles;
-        private List<Line> lines;
-        private List<Point> points;
+        /// <summary>
+        /// Provides a lookup to find a data type for a corresponding TAG file element type
+        /// </summary>
+        public static Dictionary<string, Type> ElemTypeLookup = new Dictionary<string, Type>()
+        {
+            { "1", typeof(Point) },
+            { "2", typeof(Line) },
+            { "3", typeof(Arc) },
+            { "4", typeof(Circle) }
+        };
+
+        /// <summary>
+        /// Full path of TAG file
+        /// </summary>
+        private string fullPath;
+
+        /// <summary>
+        /// Raw TAG file data read from disk
+        /// </summary>
+        private string[] rawFileData;
+
+        /// <summary>
+        /// Collection of elements in file
+        /// </summary>
+        private List<TagElement> elements;
+
+        /// <summary>
+        /// Parameterized ctor
+        /// </summary>
+        /// <param name="fullPath">File path of TAG file to read</param>
+        public TagFile(string fullPath)
+        {
+            this.fullPath = fullPath;
+        }
+
+        /// <summary>
+        /// Returns just the file name portion of the full path
+        /// </summary>
+        public string FileName => Path.GetFileName(fullPath);
     }
 }

@@ -12,8 +12,20 @@
 
 namespace Tag2Dxf.TagElements
 {
-    public class Point : TagElement
+    /// <summary>
+    /// Class to encapsulate a TAG Point
+    /// </summary>
+    public sealed class Point : TagElement
     {
-        
+        /// <inheritdoc/>
+        public Point(string rawElementData) : base(rawElementData)
+        {
+        }
+
+        /// <inheritdoc/>
+        protected override void ParseRawData()
+        {
+            var splitElementData = rawElementData.Split(',');
+        }
     }
 }
