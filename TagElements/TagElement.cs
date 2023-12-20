@@ -29,6 +29,7 @@ namespace Tag2Dxf.TagElements
         protected TagElement(string rawElementData)
         {
             this.rawElementData = rawElementData;
+            ParseRawElementData();
         }
 
         /// <summary>
@@ -70,6 +71,6 @@ namespace Tag2Dxf.TagElements
         /// Parses raw data from file and populates class members. Implementation varies
         /// based on TAG element type.
         /// </summary>
-        protected abstract void ParseRawData();
+        protected abstract void ParseRawElementData();
     }
 }

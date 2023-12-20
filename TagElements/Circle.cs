@@ -28,7 +28,7 @@ namespace Tag2Dxf.TagElements
         public float? Radius { get; private set; }
 
         /// <inheritdoc/>
-        protected override void ParseRawData()
+        protected override void ParseRawElementData()
         {
             var splitElementData = rawElementData.Split(',');
             X = Convert.ToSingle(splitElementData[1]);
