@@ -1,3 +1,4 @@
+///////////////////////////////////////////////////////////////////////////////
 /// <summary>
 /// Tag2Dxf
 /// (C) Copyright 2023 Surface Creations of Maine
@@ -7,6 +8,8 @@
 /// Purpose: Class to encapsulate a TAG Line
 /// Author:  Andrew Wyshak
 /// </summary>
+///////////////////////////////////////////////////////////////////////////////
+
 namespace Tag2Dxf.TagElements
 {
     /// <summary>
@@ -22,12 +25,12 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// X coordinate of line endpoint
         /// </summary>
-        public float X2 { get; private set; }
+        public float? X2 { get; private set; }
 
         /// <summary>
         /// Y coordinate of line endpoint
         /// </summary>
-        public float Y2 { get; private set; }
+        public float? Y2 { get; private set; }
 
         /// <inheritdoc/>
         protected override void ParseRawData()

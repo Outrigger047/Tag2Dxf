@@ -25,17 +25,17 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// Arc radius
         /// </summary>
-        public float Radius { get; private set; }
+        public float? Radius { get; private set; }
 
         /// <summary>
         /// Angle of arc start
         /// </summary>
-        public float AngleStart { get; private set; }
+        public float? AngleStart { get; private set; }
 
         /// <summary>
         /// Angle of arc end
         /// </summary>
-        public float AngleEnd { get; private set; }
+        public float? AngleEnd { get; private set; }
 
         /// <inheritdoc/>
         protected override void ParseRawData()

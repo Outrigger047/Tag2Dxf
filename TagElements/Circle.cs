@@ -25,7 +25,7 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// Radius of circle
         /// </summary>
-        public float Radius { get; private set; }
+        public float? Radius { get; private set; }
 
         /// <inheritdoc/>
         protected override void ParseRawData()
