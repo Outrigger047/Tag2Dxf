@@ -35,17 +35,12 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// X coordinate of the start or center of the element
         /// </summary>
-        public float? X { get; protected set; }
+        public double X { get; protected set; }
 
         /// <summary>
         /// Y coordinate of the start or center of the element
         /// </summary>
-        public float? Y { get; protected set; }
-
-        /// <summary>
-        /// Z coordinate of the start or center of the element
-        /// </summary>
-        public float? Z { get; protected set; }
+        public double Y { get; protected set; }
 
         /// <summary>
         /// Color value

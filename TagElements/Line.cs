@@ -25,21 +25,21 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// X coordinate of line endpoint
         /// </summary>
-        public float? X2 { get; private set; }
+        public double X2 { get; private set; }
 
         /// <summary>
         /// Y coordinate of line endpoint
         /// </summary>
-        public float? Y2 { get; private set; }
+        public double Y2 { get; private set; }
 
         /// <inheritdoc/>
         protected override void ParseRawElementData()
         {
             var splitElementData = rawElementData.Split(',');
-            X = Convert.ToSingle(splitElementData[1]);
-            Y = Convert.ToSingle(splitElementData[2]);
-            X2 = Convert.ToSingle(splitElementData[3]);
-            Y2 = Convert.ToSingle(splitElementData[4]);
+            X = Convert.ToDouble(splitElementData[1]);
+            Y = Convert.ToDouble(splitElementData[2]);
+            X2 = Convert.ToDouble(splitElementData[3]);
+            Y2 = Convert.ToDouble(splitElementData[4]);
             Color = Convert.ToInt16(splitElementData[5]);
             Style = Convert.ToInt16(splitElementData[6]);
             Weight = Convert.ToInt16(splitElementData[7]);

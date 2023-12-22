@@ -26,8 +26,8 @@ namespace Tag2Dxf.TagElements
         protected override void ParseRawElementData()
         {
             var splitElementData = rawElementData.Split(',');
-            X = Convert.ToSingle(splitElementData[1]);
-            Y = Convert.ToSingle(splitElementData[2]);
+            X = Convert.ToDouble(splitElementData[1]);
+            Y = Convert.ToDouble(splitElementData[2]);
             Color = Convert.ToInt16(splitElementData[3]);
             Level = Convert.ToInt16(splitElementData[4]);
         }

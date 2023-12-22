@@ -25,15 +25,15 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// Radius of circle
         /// </summary>
-        public float? Radius { get; private set; }
+        public double Radius { get; private set; }
 
         /// <inheritdoc/>
         protected override void ParseRawElementData()
         {
             var splitElementData = rawElementData.Split(',');
-            X = Convert.ToSingle(splitElementData[1]);
-            Y = Convert.ToSingle(splitElementData[2]);
-            Radius = Convert.ToSingle(splitElementData[3]);
+            X = Convert.ToDouble(splitElementData[1]);
+            Y = Convert.ToDouble(splitElementData[2]);
+            Radius = Convert.ToDouble(splitElementData[3]);
         }
     }
 }

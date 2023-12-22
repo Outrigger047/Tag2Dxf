@@ -25,27 +25,27 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// Arc radius
         /// </summary>
-        public float? Radius { get; private set; }
+        public double Radius { get; private set; }
 
         /// <summary>
         /// Angle of arc start
         /// </summary>
-        public float? AngleStart { get; private set; }
+        public double AngleStart { get; private set; }
 
         /// <summary>
         /// Angle of arc end
         /// </summary>
-        public float? AngleEnd { get; private set; }
+        public double AngleEnd { get; private set; }
 
         /// <inheritdoc/>
         protected override void ParseRawElementData()
         {
             var splitElementData = rawElementData.Split(',');
-            X = Convert.ToSingle(splitElementData[1]);
-            Y = Convert.ToSingle(splitElementData[2]);
-            Radius = Convert.ToSingle(splitElementData[3]);
-            AngleStart = Convert.ToSingle(splitElementData[4]);
-            AngleEnd = Convert.ToSingle(splitElementData[5]);
+            X = Convert.ToDouble(splitElementData[1]);
+            Y = Convert.ToDouble(splitElementData[2]);
+            Radius = Convert.ToDouble(splitElementData[3]);
+            AngleStart = Convert.ToDouble(splitElementData[4]);
+            AngleEnd = Convert.ToDouble(splitElementData[5]);
             Color = Convert.ToInt16(splitElementData[6]);
             Style = Convert.ToInt16(splitElementData[7]);
             Weight = Convert.ToInt16(splitElementData[8]);

@@ -30,11 +30,6 @@ namespace Tag2Dxf
         private readonly string[]? rawFileData;
 
         /// <summary>
-        /// Collection of elements in file
-        /// </summary>
-        private List<TagElement> elements = new();
-
-        /// <summary>
         /// Parameterized ctor
         /// </summary>
         /// <param name="fullPath">File path of TAG file to read</param>
@@ -60,7 +55,12 @@ namespace Tag2Dxf
         public string FullPath => Path.GetFullPath(fullPath);
 
         /// <summary>
-        /// Parses TAG file data and populates <see cref="elements"/>
+        /// Collection of elements in file
+        /// </summary>
+        public List<TagElement> Elements { get; private set; } = new();
+
+        /// <summary>
+        /// Parses TAG file data and populates <see cref="Elements"/>
         /// </summary>
         private void ParseRawFileData()
         {
@@ -79,16 +79,16 @@ namespace Tag2Dxf
                     switch(lineSplit[0])
                     {
                         case "1": // Point
-                            elements.Add(new Point(fileLine));
+                            Elements.Add(new Point(fileLine));
                             break;
                         case "2": // Line
-                            elements.Add(new Line(fileLine));
+                            Elements.Add(new Line(fileLine));
                             break;
                         case "3": // Arc
-                            elements.Add(new Arc(fileLine));
+                            Elements.Add(new Arc(fileLine));
                             break;
                         case "4": // Circle
-                            elements.Add(new Circle(fileLine));
+                            Elements.Add(new Circle(fileLine));
                             break;
                         default: // No handled data type
                             break;
