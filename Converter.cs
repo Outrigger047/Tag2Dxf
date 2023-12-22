@@ -11,6 +11,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using netDxf;
+using netDxf.Entities;
+using Tag2Dxf.TagElements;
 using DxfEntities = netDxf.Entities;
 
 namespace Tag2Dxf
@@ -52,58 +54,52 @@ namespace Tag2Dxf
         /// </summary>
         /// <param name="tagFile">TAG file data</param>
         /// <returns>DXF document</returns>
-        /// 
-        /// TODO Consider rewriting to reduce code reuse for transferring over color/style/weight/level attributes
         public static DxfDocument ConvertTag2Dxf(TagFile tagFile)
-        {           
-            var dxfFile = new DxfDocument();
+        {
+            var dxfFile = new DxfDocument
+            {
+                Name = tagFile.FileName
+            };
+
+            var elementPairs = new List<Tuple<TagElement, EntityObject>>();
 
             // Points
-            var tagPoints = tagFile.Elements.OfType<TagElements.Point>().ToList();
-            foreach (var tagPoint in tagPoints)
+            foreach (var tagPoint in tagFile.Elements.OfType<TagElements.Point>())
             {
                 var dxfPoint = new DxfEntities.Point(new Vector2(tagPoint.X, tagPoint.Y));
-
-                tagDxfColorPairs.TryGetValue(tagPoint.Color, out var aciColor);
-                dxfPoint.Color = aciColor ?? AciColor.Default;
-
-                dxfFile.Entities.Add(dxfPoint);
+                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagPoint, dxfPoint));
             }
 
             // Lines
-            var tagLines = tagFile.Elements.OfType<TagElements.Line>().ToList();
-            foreach (var tagLine in tagLines)
+            foreach (var tagLine in tagFile.Elements.OfType<TagElements.Line>())
             {
-                var dxfLine = new DxfEntities.Line(new Vector2(tagLine.X, tagLine.Y), new Vector2(tagLine.X2, tagLine.Y2));
-
-                tagDxfColorPairs.TryGetValue(tagLine.Color, out var aciColor);
-                dxfLine.Color = aciColor ?? AciColor.Default;
-
-                dxfFile.Entities.Add(dxfLine);
+                var dxfLine = new DxfEntities.Line(new Vector2(tagLine.X, tagLine.Y), new Vector2(tagLine.X2, tagLine.Y2));           
+                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagLine, dxfLine));
             }
 
             // Arcs
-            var tagArcs = tagFile.Elements.OfType<TagElements.Arc>().ToList();
-            foreach (var tagArc in tagArcs)
+            foreach (var tagArc in tagFile.Elements.OfType<TagElements.Arc>())
             {
                 var dxfArc = new DxfEntities.Arc(new Vector2(tagArc.X, tagArc.Y), tagArc.Radius, tagArc.AngleStart, tagArc.AngleEnd);
-
-                tagDxfColorPairs.TryGetValue(tagArc.Color, out var aciColor);
-                dxfArc.Color = aciColor ?? AciColor.Default;
-
-                dxfFile.Entities.Add(dxfArc);
+                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagArc, dxfArc));
             }
 
             // Circles
-            var tagCircles = tagFile.Elements.OfType<TagElements.Circle>().ToList();
-            foreach (var tagCircle in tagCircles)
+            foreach (var tagCircle in tagFile.Elements.OfType<TagElements.Circle>())
             {
                 var dxfCircle = new DxfEntities.Circle(new Vector2(tagCircle.X, tagCircle.Y), tagCircle.Radius);
+                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagCircle, dxfCircle));
+            }
 
-                tagDxfColorPairs.TryGetValue(tagCircle.Color, out var aciColor);
-                dxfCircle.Color = aciColor ?? AciColor.Default;
+            // Iterate over collection of all element pairs and convert color, style, weight, level
+            foreach (var elementPair in elementPairs)
+            {
+                // Color
+                tagDxfColorPairs.TryGetValue(elementPair.Item1.Color, out var aciColor);
+                elementPair.Item2.Color = aciColor ?? AciColor.Default;
 
-                dxfFile.Entities.Add(dxfCircle);
+                // Add entity to DXF document
+                dxfFile.Entities.Add(elementPair.Item2);
             }
 
             return dxfFile;
