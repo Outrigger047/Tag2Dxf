@@ -45,22 +45,22 @@ namespace Tag2Dxf.TagElements
         /// <summary>
         /// Color value
         /// </summary>
-        public short? Color { get; protected set; }
+        public int Color { get; protected set; }
 
         /// <summary>
         /// Style value (dashed, dotted, solid, etc.)
         /// </summary>
-        public short? Style { get; protected set; }
+        public int Style { get; protected set; }
 
         /// <summary>
         /// Weight value (line thickness)
         /// </summary>
-        public short? Weight { get; protected set; }
+        public int Weight { get; protected set; }
 
         /// <summary>
         /// Level value
         /// </summary>
-        public short? Level { get; protected set; }
+        public int Level { get; protected set; }
 
         /// <summary>
         /// Parses raw data from file and populates class members. Implementation varies
