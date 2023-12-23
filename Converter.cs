@@ -11,7 +11,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using netDxf;
-using netDxf.Entities;
+using netDxf.Tables;
 using Tag2Dxf.TagElements;
 using DxfEntities = netDxf.Entities;
 
@@ -50,6 +50,18 @@ namespace Tag2Dxf
         };
 
         /// <summary>
+        /// Lookup for converting TAG style values to AutoCAD linetype values
+        /// </summary>
+        private static Dictionary<int, Linetype> tagDxfStylePairs = new Dictionary<int, Linetype>()
+        {
+            { 1, Linetype.Continuous },     // ------------------
+            { 2, Linetype.Dashed },         // ---  ---  ---  ---
+            { 3, Linetype.Dot },            // .  .  .  .  .  .  
+            { 4, Linetype.DashDot },        // --- . --- . --- .
+            { 5, Linetype.DashDot }         // No equivalent or similar
+        };
+
+        /// <summary>
         /// Converts TAG file data to DXF
         /// </summary>
         /// <param name="tagFile">TAG file data</param>
@@ -61,34 +73,34 @@ namespace Tag2Dxf
                 Name = tagFile.FileName
             };
 
-            var elementPairs = new List<Tuple<TagElement, EntityObject>>();
+            var elementPairs = new List<Tuple<TagElement, DxfEntities.EntityObject>>();
 
             // Points
             foreach (var tagPoint in tagFile.Elements.OfType<TagElements.Point>())
             {
                 var dxfPoint = new DxfEntities.Point(new Vector2(tagPoint.X, tagPoint.Y));
-                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagPoint, dxfPoint));
+                elementPairs.Add(new Tuple<TagElement, DxfEntities.EntityObject>(tagPoint, dxfPoint));
             }
 
             // Lines
             foreach (var tagLine in tagFile.Elements.OfType<TagElements.Line>())
             {
                 var dxfLine = new DxfEntities.Line(new Vector2(tagLine.X, tagLine.Y), new Vector2(tagLine.X2, tagLine.Y2));           
-                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagLine, dxfLine));
+                elementPairs.Add(new Tuple<TagElement, DxfEntities.EntityObject>(tagLine, dxfLine));
             }
 
             // Arcs
             foreach (var tagArc in tagFile.Elements.OfType<TagElements.Arc>())
             {
                 var dxfArc = new DxfEntities.Arc(new Vector2(tagArc.X, tagArc.Y), tagArc.Radius, tagArc.AngleStart, tagArc.AngleEnd);
-                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagArc, dxfArc));
+                elementPairs.Add(new Tuple<TagElement, DxfEntities.EntityObject>(tagArc, dxfArc));
             }
 
             // Circles
             foreach (var tagCircle in tagFile.Elements.OfType<TagElements.Circle>())
             {
                 var dxfCircle = new DxfEntities.Circle(new Vector2(tagCircle.X, tagCircle.Y), tagCircle.Radius);
-                elementPairs.Add(new Tuple<TagElement, EntityObject>(tagCircle, dxfCircle));
+                elementPairs.Add(new Tuple<TagElement, DxfEntities.EntityObject>(tagCircle, dxfCircle));
             }
 
             // Iterate over collection of all element pairs and convert color, style, weight, level
@@ -97,6 +109,10 @@ namespace Tag2Dxf
                 // Color
                 tagDxfColorPairs.TryGetValue(elementPair.Item1.Color, out var aciColor);
                 elementPair.Item2.Color = aciColor ?? AciColor.Default;
+
+                // Style
+                tagDxfStylePairs.TryGetValue(elementPair.Item1.Style, out var linetype);
+                elementPair.Item2.Linetype = linetype ?? Linetype.Continuous;
 
                 // Add entity to DXF document
                 dxfFile.Entities.Add(elementPair.Item2);
