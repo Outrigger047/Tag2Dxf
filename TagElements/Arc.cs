@@ -43,7 +43,7 @@ namespace Tag2Dxf.TagElements
             var splitElementData = rawElementData.Split(',');
             X = Convert.ToDouble(splitElementData[1]);
             Y = Convert.ToDouble(splitElementData[2]);
-            Radius = Convert.ToDouble(splitElementData[3]);
+            Radius = Math.Abs(Convert.ToDouble(splitElementData[3]));
             AngleStart = Convert.ToDouble(splitElementData[4]);
             AngleEnd = Convert.ToDouble(splitElementData[5]);
             Color = Convert.ToInt16(splitElementData[6]);
