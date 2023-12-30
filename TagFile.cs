@@ -75,23 +75,34 @@ namespace Tag2Dxf
                     }
     
                     var lineSplit = fileLine.Split(',');
-    
-                    switch(lineSplit[0])
+
+                    try
                     {
-                        case "1": // Point
-                            Elements.Add(new Point(fileLine));
-                            break;
-                        case "2": // Line
-                            Elements.Add(new Line(fileLine));
-                            break;
-                        case "3": // Arc
-                            Elements.Add(new Arc(fileLine));
-                            break;
-                        case "4": // Circle
-                            Elements.Add(new Circle(fileLine));
-                            break;
-                        default: // No handled data type
-                            break;
+                        switch(lineSplit[0])
+                        {
+                            case "1": // Point
+                                Elements.Add(new Point(fileLine));
+                                break;
+                            case "2": // Line
+                                Elements.Add(new Line(fileLine));
+                                break;
+                            case "3": // Arc
+                                Elements.Add(new Arc(fileLine));
+                                break;
+                            case "4": // Circle
+                                Elements.Add(new Circle(fileLine));
+                                break;
+                            default: // No handled data type
+                                break;
+                        }   
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Error while parsing raw TAG file data");
+                        Console.WriteLine($"File: {fullPath}");
+                        Console.WriteLine($"Raw data: {fileLine}");
+
+                        throw;
                     }
                 }
             }
