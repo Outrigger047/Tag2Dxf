@@ -126,6 +126,14 @@ namespace Tag2Dxf
             }
         }
 
+        /// <summary>
+        /// Processes files for TAG-to-DXF conversion. Iterates over collection of enumerated files, 
+        /// executes conversion operation, and writes converted files to disk.
+        /// </summary>
+        /// <param name="tagFileInfos">List of TAG file FileInfo objects</param>
+        /// <param name="outputDirectoryIn">Optional target output directory</param>
+        /// <param name="logErrors">Log errors to file and console if true</param>
+        /// <returns></returns>
         private static async Task ProcessFiles(List<FileInfo> tagFileInfos, string outputDirectoryIn, bool logErrors)
         { 
             var errorFiles = new List<(FileInfo, Exception)>();
