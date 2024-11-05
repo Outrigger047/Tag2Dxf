@@ -1,12 +1,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// <summary>
+///
 /// Tag2Dxf
-/// (C) Copyright 2023 Surface Creations of Maine
 ///
 /// File:    TagElement.cs
 /// Created: November 20, 2023
 /// Purpose: Base class for all TAG elements
 /// Author:  Andrew Wyshak
+///          Surface Creations of Maine
 /// </summary>
 ///////////////////////////////////////////////////////////////////////////////
 
